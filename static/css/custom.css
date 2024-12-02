@@ -1,0 +1,20 @@
+/*
+Custom Css
+*/
+.card-img{
+    height: 350px;
+    width: 300px;
+}
+.related-img{
+    height: 250px;
+    width: 250px;
+}
+p.price{
+    display: inline;
+}
+div.card-body{
+    text-align: center;
+}
+.contact-form{
+    box-shadow: black;
+}
