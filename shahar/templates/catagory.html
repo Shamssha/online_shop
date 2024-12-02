@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Start Content -->
+<div class="container-fluid py-5 px-5">
+    <div class="row">
+        <!-- --------------Catagory------------ -->
+        <div class="row col-md-2">
+            <div class="col-md-10">
+                <h2 class="pb-4">دسته بندی ها</h2>
+                <ul class="list-unstyled templatemo-accordion">
+                    {% for i in catagory_objects %}
+                        <a class="text-decoration-none" href="{% url 'catagory' i.name %}">{{ i.name }}</a>
+                        <hr>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="row col-md-10">
+            <h1 class="text-center mb-4">{{ catagory_list }} ها</h1>
+                {% for item in page_obj %}
+                {% if item.pr_is_sale%}
+                <div class="col-md-3 col-6">
+                    <div class="card mb-4 product-wap rounded-0">
+                        <div class="card rounded-0">
+                            <div class="badge text-danger position-absolute"
+                                style="top: 0.5rem;right: 0.5rem; width: fit-content; opacity: 60%; border-radius: 10px; background-color: darkgray;">
+                                تخفیف ویژه</div>
+                            <div class="image">
+                                <img class="card-img rounded-0 img-fluid" src="{{item.pr_photo.url}}">
+                            </div>
+                            <div
+                                class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                                <ul class="list-unstyled">
+                                    <li><a class="btn btn-success text-white" href="#"><i class="far fa-heart"></i></a>
+                                    </li>
+                                    <li><a class="btn btn-success text-white mt-2" href="#"><i
+                                                class="fas fa-cart-plus"></i></a></li>
+                                    <li><a class="btn btn-success text-white mt-2" href="{% url 'pr' item.id %}"><i
+                                                class="far fa-eye"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <a href="shop-single.html" class="h3 text-decoration-none">{{item.pr_name}}</a>
+                            <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                                <li>{{item.pr_size}}</li>
+                            </ul>
+                            <ul class="list-unstyled d-flex justify-content-center mb-1">
+                                <li>
+                                    {% with ''|center:item.star as range %}
+                                    {% for _ in range %}
+                                    <i class="text-warning fa fa-star"></i>
+                                    {% endfor %}
+                                    {% endwith%}
+                                </li>
+                            </ul>
+                            <div class=" price">
+                                <strike>
+                                    <p class="price mb-0">{{item.pr_price}}افغانی</p>
+                                </strike>
+                                <p class="price mb-0">-{{item.pr_sale_price}}افغانی</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {% else %}
+                <div class="col-md-3 col-6">
+                    <div class="card mb-4 product-wap rounded-0">
+                        <div class="card rounded-0">
+                            <div class="image">
+                                <img class="card-img rounded-0 img-fluid" src="{{item.pr_photo.url}}">
+                            </div>
+                            <div
+                                class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                                <ul class="list-unstyled">
+                                    <li><a class="btn btn-success text-white" href="#"><i class="far fa-heart"></i></a>
+                                    </li>
+                                    <li><a class="btn btn-success text-white mt-2" href="#"><i
+                                                class="fas fa-cart-plus"></i></a></li>
+                                    <li><a class="btn btn-success text-white mt-2" href="{% url 'pr' item.id %}"><i
+                                                class="far fa-eye"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <a href="shop-single.html" class="h3 text-decoration-none">{{item.pr_name}}</a>
+                            <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                                <li>{{item.pr_size}}</li>
+                            </ul>
+                            <ul class="list-unstyled d-flex justify-content-center mb-1">
+                                <li>
+                                    {% with ''|center:item.star as range %}
+                                    {% for _ in range %}
+                                    <i class="text-warning fa fa-star"></i>
+                                    {% endfor %}
+                                    {% endwith%}
+                                </li>
+                            </ul>
+                            <p class="text-center mb-0">{{item.pr_price}}افغانی</p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+        </div>
+        <div div="row">
+            <ul class="pagination pagination-lg justify-content-end">
+                <li class="page-item">
+                    {% if page_obj.has_previous %}
+                    <a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark"
+                        href="?page={{ page_obj.previous_page_number }}">قبلی</a>
+                    {% endif %}
+                </li>
+                {% for page in page_obj.paginator.page_range %}
+                {% if page == page_obj.number %}
+                <li class="page-item">
+                    <a class="active page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark"
+                        href="?page={{page}}">{{page}}</a>
+                </li>
+                {% else %}
+                <li class="page-item">
+                    <a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark"
+                        href="?page={{page}}">{{page}}</a>
+                </li>
+                {% endif %}
+                {% endfor %}
+                <li class="page-item">
+                    {% if page_obj.has_next %}
+                    <a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark"
+                        href="?page={{ page_obj.next_page_number }}">بعدی</a>
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="contact-form col-md-6 my-3">
+            {% for message in messages %}
+              {% if message %}
+              <div class="alert alert-{{message.tags}}">
+                {{ message }}
+              </div>
+              {% endif %}
+            {% endfor %}
+            <form method="post">
+                {% csrf_token %}
+                {{contact_form}}
+                <input class="form-control btn-success" type="submit" value="ارسال">
+            </form>
+        </div>
+        <div class="col-md-6 my-3 text-center">
+            <h1>پل ارطباتی ما</h1>
+            <hr>
+            <div>
+                <p>تماس با ما.</p>
+                <i class="fa fa-envelope mx-2"></i>
+                <a class="text-dark text-decoration-none"
+                    href="mailto:shamsurahmanshkoori@gmail.com">shamsurahmanshkoori@gmail.com</a>
+            </div>
+            <br>
+            <div>
+                <i class="fa fa-phone mx-2"></i>
+                <a class="text-dark text-decoration-none" href="tel:+93778154841"> 93778154841+ </a>
+                <br><br>
+            </div>
+            <div class="botom">
+                <p>ما را در شبکه های اجتماعی دنبال کنید.</p>
+                <a class="text-dark" href="https://fb.com/shamsurahmanshkoori" target="_blank" rel="sponsored"><i
+                        class="fab fa-facebook-f fa-lg fa-fw me-2"></i></a>
+                <a class="text-dark" href="https://www.instagram.com/shams_1997" target="_blank"><i
+                        class="fab fa-instagram fa-lg fa-fw me-2"></i></a>
+                <a class="text-dark" href="https://twitter.com/shams_1997" target="_blank"><i
+                        class="fab fa-twitter fa-lg fa-fw me-2"></i></a>
+                <a class="text-dark" href="https://www.linkedin.com/shams_1997" target="_blank"><i
+                        class="fab fa-linkedin fa-lg fa-fw me-2"></i></a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

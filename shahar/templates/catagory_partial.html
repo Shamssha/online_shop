@@ -1,0 +1,9 @@
+<div class="col-md-10">
+    <h2 class="pb-4">دسته بندی ها</h2>
+    <ul class="list-unstyled templatemo-accordion">
+        {% for i in catagory_objects %}
+            <a class="text-decoration-none" href="{% url 'catagory' i.name %}">{{ i.name }}</a>
+            <hr>
+        {% endfor %}
+    </ul>
+</div>
